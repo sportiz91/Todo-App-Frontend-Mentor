@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Frontend Mentor | Todo app</title>
+
+    <link rel="icon" href="./images/favicon-32x32.png" />
+
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <div class="background dark" data-background-image></div>
+      <div class="title-theme">
+        <h1>TODO</h1>
+        <input
+          type="image"
+          name="sub-button"
+          src="./images/icon-sun.svg"
+          class="theme-button"
+          data-theme-button
+        />
+      </div>
+
+      <form class="new-task" data-new-task>
+        <input type="text" placeholder="Create a new todo..." />
+      </form>
+
+      <div class="task-buttons-container">
+        <div class="list-tasks" data-list-of-tasks>
+          <div class="task" draggable="true" data-tasks>
+            <label class="task-label" for="task-1" data-click-label>
+              <input
+                type="checkbox"
+                class="false-checkbox"
+                id="task-1"
+                data-checkboxes
+              />
+              <span class="real-checkbox"
+                ><span class="real-checkbox-2"
+                  ><img src="./images/icon-check.svg" alt="" /></span
+              ></span>
+              <span class="task-label-paragraph"
+                >Complete online JavaScript course</span
+              >
+            </label>
+            <input
+              type="image"
+              src="./images/icon-cross.svg"
+              class="delete-task"
+              data-crosses
+            />
+          </div>
+
+          <div class="task" draggable="true" data-tasks>
+            <label class="task-label" for="task-2" data-click-label>
+              <input
+                type="checkbox"
+                class="false-checkbox"
+                id="task-2"
+                data-checkboxes
+              />
+              <span class="real-checkbox"
+                ><span class="real-checkbox-2"
+                  ><img src="./images/icon-check.svg" alt="" /></span
+              ></span>
+
+              <span class="task-label-paragraph">Jag around the park 3x</span>
+            </label>
+            <input
+              type="image"
+              src="./images/icon-cross.svg"
+              class="delete-task"
+              data-crosses
+            />
+          </div>
+
+          <div class="task" draggable="true" data-tasks>
+            <label class="task-label" for="task-3" data-click-label>
+              <input
+                type="checkbox"
+                class="false-checkbox"
+                id="task-3"
+                data-checkboxes
+              />
+              <span class="real-checkbox"
+                ><span class="real-checkbox-2"
+                  ><img src="./images/icon-check.svg" alt="" /></span
+              ></span>
+
+              <span class="task-label-paragraph">10 minutes meditation</span>
+            </label>
+            <input
+              type="image"
+              src="./images/icon-cross.svg"
+              class="delete-task"
+              data-crosses
+            />
+          </div>
+
+          <div class="task" draggable="true" data-tasks>
+            <label class="task-label" for="task-4" data-click-label>
+              <input
+                type="checkbox"
+                class="false-checkbox"
+                id="task-4"
+                data-checkboxes
+              />
+              <span class="real-checkbox"
+                ><span class="real-checkbox-2"
+                  ><img src="./images/icon-check.svg" alt="" /></span
+              ></span>
+
+              <span class="task-label-paragraph">Read for 1 hour</span>
+            </label>
+            <input
+              type="image"
+              src="./images/icon-cross.svg"
+              class="delete-task"
+              data-crosses
+            />
+          </div>
+
+          <div class="task" draggable="true" data-tasks>
+            <label class="task-label" for="task-5" data-click-label>
+              <input
+                type="checkbox"
+                class="false-checkbox"
+                id="task-5"
+                data-checkboxes
+              />
+              <span class="real-checkbox"
+                ><span class="real-checkbox-2"
+                  ><img src="./images/icon-check.svg" alt="" /></span
+              ></span>
+              <span class="task-label-paragraph">Pick up groceries</span>
+            </label>
+            <input
+              type="image"
+              src="./images/icon-cross.svg"
+              class="delete-task"
+              data-crosses
+            />
+          </div>
+
+          <div class="task" draggable="true" data-tasks>
+            <label class="task-label" for="task-6" data-click-label>
+              <input
+                type="checkbox"
+                class="false-checkbox"
+                id="task-6"
+                data-checkboxes
+              />
+              <span class="real-checkbox"
+                ><span class="real-checkbox-2"
+                  ><img src="./images/icon-check.svg" alt="" /></span
+              ></span>
+              <span class="task-label-paragraph"
+                >Complete Todo App on Frontend Mentor</span
+              >
+            </label>
+            <input
+              type="image"
+              src="./images/icon-cross.svg"
+              class="delete-task"
+              data-crosses
+            />
+          </div>
+        </div>
+
+        <div class="list-footer">
+          <p class="items-left" data-items-left>5 items left</p>
+          <div class="all-active-completed">
+            <button class="btn active" data-btn-all>All</button>
+            <button class="btn" data-btn-active>Active</button>
+            <button class="btn" data-btn-completed>Completed</button>
+          </div>
+          <button class="clear-completed btn" data-clear-completed>
+            Clear Completed
+          </button>
+        </div>
+      </div>
+
+      <p class="drag">Drag and drop to reorder list</p>
+    </main>
+
+    <footer class="attribution">
+      <p>
+        Challenge by
+        <a href="https://www.frontendmentor.io" target="_blank"
+          >Frontend Mentor.</a
+        >
+        Coded by:
+        <a href="https://github.com/sportiz91" target="_blank">Lasantoneta.</a>
+      </p>
+    </footer>
+
+    <template data-the-template>
+      <div class="task" draggable="true" data-tasks>
+        <label class="task-label" data-click-label>
+          <input type="checkbox" class="false-checkbox" data-checkboxes />
+          <span class="real-checkbox"
+            ><span class="real-checkbox-2"
+              ><img src="./images/icon-check.svg" alt="" /></span
+          ></span>
+          <span class="task-label-paragraph"></span>
+        </label>
+        <input
+          type="image"
+          src="./images/icon-cross.svg"
+          class="delete-task"
+          draggable="false"
+          data-crosses
+        />
+      </div>
+    </template>
+
+    <script src="./js/script.js"></script>
+    <script src="./js/theme.js"></script>
+  </body>
+</html>

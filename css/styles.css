@@ -1,0 +1,653 @@
+/* IMPORTING FONTS */
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+
+/* DEFINING COLORS */
+/* DARK THEME */
+:root {
+  /* COLORS */
+  --circle-border: hsl(237, 14%, 26%);
+  --new-todo-color: hsl(234, 11%, 52%);
+  --tasks-color: hsl(234, 39%, 85%);
+  --footer-color: hsl(235, 16%, 43%);
+  --crossing-line-color: hsl(235, 16%, 43%);
+  --button-hover-color: hsl(236, 33%, 92%);
+  --active-button-anchor: hsl(220, 98%, 61%);
+  --h1-title: white;
+  --linear-gradient: linear-gradient(
+    to bottom right,
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  );
+
+  /* BACKGROUND */
+  --outer-background: hsl(235, 21%, 11%);
+  --inner-background: hsl(235, 24%, 19%);
+
+  /* OUTLINE */
+  --outline: 2px dotted hsla(234, 39%, 85%, 0.6);
+
+  /* BOX SHADOW */
+  --the-shadow: 5px 40px 25px 0 rgba(0, 0, 0, 0.5);
+}
+
+.light-theme {
+  /* COLORS */
+  --circle-border: hsl(236, 33%, 92%);
+  --new-todo-color: hsl(234, 11%, 52%);
+  --tasks-color: hsl(235, 19%, 35%);
+  --footer-color: hsl(236, 9%, 61%);
+  --crossing-line-color: hsl(233, 11%, 84%);
+  --button-hover-color: hsl(235, 19%, 35%);
+  --active-button-anchor: hsl(220, 98%, 61%);
+  --h1-title: white;
+  --linear-gradient: linear-gradient(
+    to bottom right,
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  );
+
+  /* BACKGROUND */
+  --outer-background: hsl(0, 0%, 98%);
+  --inner-background: hsl(0, 0%, 100%);
+
+  /* OUTLINE */
+  --outline: 2px dotted rgba(0, 0, 0, 0.7);
+
+  /* BOX SHADOW */
+  --the-shadow: 5px 40px 25px 0 rgba(134, 134, 134, 0.1);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 1.125rem; /* 18px */
+  color: var(--tasks-color);
+  background-color: var(--outer-background);
+  min-height: 100vh; /* by putting min height 100 vh we make at least all the screen.
+  At most, overflow y allowed */
+  display: flex; /* display flex + flex direction column + justify content space
+  between is used display the footer at the bottom of the page (when content is less
+  than 100vh) */
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+button {
+  font-family: "Josefin Sans", sans-serif; /* button font family needs to be overwritten
+  It has default family */
+}
+
+footer {
+  padding: 3rem 1rem 2rem; /* if no padding were defined, footer would be sticked
+  to the bottom edge */
+  text-align: center; /* default alignment: left */
+  color: var(
+    --footer-color
+  ); /* if no color were defined, body color is used (whity) */
+  font-size: 0.8em; /* 14.4px = 0.8 * 18 (1.125rem defined in the body) */
+}
+
+footer a {
+  text-decoration: none; /* deletes underline of links */
+  color: var(--button-hover-color);
+  transition: color 0.25s; /* defining a "lag" effect when hovering */
+}
+
+footer a:hover {
+  color: var(--active-button-anchor);
+}
+
+footer a:focus {
+  outline: var(
+    --outline
+  ); /* when you alt tab and arrive to the links, outline is
+  defined */
+}
+
+.app {
+  display: grid;
+  grid:
+    "..... title         ....." auto
+    "..... newtask       ....." 47px
+    "..... taskcontainer ....." auto
+    "..... draganddrop   ....." auto / 1fr 87% 1fr;
+  /* columns are defined with auto height (except newtask which has 47px). 
+    Width of columns is defined as 87% and then, the fractions / 2 */
+  row-gap: 1.25rem;
+}
+@media (min-width: 600px) {
+  .app {
+    grid:
+      "..... title         ....." auto
+      "..... newtask       ....." 61px
+      "..... taskcontainer ....." auto
+      "..... draganddrop   ....." auto / 1fr 522px 1fr;
+  } /* for tablet / desktop view, we fix the width in 522px. It's like defining
+  a max width */
+}
+
+.background {
+  content: "";
+  position: absolute; /* position absolute to break the normal flow of html */
+  background-size: cover; /* cover means the image occupies all the container,
+  but maybe not all the image is displayed */
+  height: 230px; /* height needs to be fixed, for low height devices */
+  width: 100%; /* if height and width is no defined, remember the image is not
+  displayed */
+  z-index: -2; /* z-index needs to be the minimum possible in order to show the
+  image behind all the app structure */
+}
+@media (min-width: 600px) {
+  .background {
+    background-position: top center;
+    height: 256px;
+  }
+}
+
+.dark {
+  /* default class is mobile dark */
+  background-image: url("/images/bg-mobile-dark.jpg");
+}
+@media (min-width: 600px) {
+  .dark {
+    background-image: url("/images/bg-desktop-dark.jpg");
+  }
+}
+
+.light {
+  background-image: url("/images/bg-mobile-light.jpg");
+}
+@media (min-width: 600px) {
+  .light {
+    background-image: url("/images/bg-desktop-light.jpg");
+  }
+}
+
+.title-theme {
+  grid-area: title; /* to populate grid */
+  display: flex; /* no direction is defined, row is assumed */
+  justify-content: space-between; /* maximum separation in-between items */
+  padding: 3rem 0 2rem; /* no padding were defined, TODO + sun were sticked to
+  the upper edge */
+  font-size: 0.85rem; /* todo font size */
+}
+
+.title-theme > h1 {
+  letter-spacing: 0.4em;
+  color: var(--h1-title);
+}
+
+.theme-button {
+  height: 1.6em; /* defining size for sun button */
+  width: 1.6em;
+}
+
+.theme-button:focus {
+  outline: var(--outline); /* defining outline when alt+tabbing to sun button */
+}
+
+.new-task {
+  grid-area: newtask; /* to populate grid */
+  background-color: var(--inner-background);
+  border-radius: 5px; /* make it a bit circular */
+  display: flex;
+  align-items: center; /* two elements for the flex: before + input. Align items
+  used to center vertically */
+  position: relative;
+}
+
+.new-task::before {
+  content: "";
+  position: absolute; /* positioning agains new task form */
+  left: 1rem; /* from left, 16 px. It's like a padding left */
+  height: 25px;
+  width: 25px;
+  border: 1px solid var(--circle-border);
+  border-radius: 50%;
+}
+
+.new-task input {
+  background: 0; /* eliminate default background for the input */
+  border: 0; /* eliminate default border for the input */
+  width: 100%;
+  height: 100%; /* occuping all the form, but having a left padding. If not,
+  superposition with before element ocurrs */
+  padding-left: 3.5rem;
+  font-family: "Josefin Sans", sans serif;
+  color: var(--tasks-color);
+  transition: color 0.5s;
+}
+@media (min-width: 600px) {
+  .new-task input {
+    font-size: 1.05rem;
+    padding-top: 3px; /* little adjustment. With this, is more centered with the bullet */
+  }
+}
+
+.new-task input::placeholder {
+  color: var(
+    --new-todo-color
+  ); /* when placeholder is not active, 
+  this color is shown */
+  font-size: 0.9em;
+  font-family: "Josefin Sans", sans serif; /* input font must be defined
+  to overwrite default font from input element */
+}
+@media (min-width: 600px) {
+  .new-task input::placeholder {
+    font-size: 1.05rem;
+  }
+}
+
+.new-task input:placeholder-shown {
+  color: var(
+    --new-todo-color
+  ); /* in the input, this is the color of the ticking
+  bar */
+}
+
+.new-task input:focus {
+  outline: var(--outline); /* defining outline when focusing the element */
+}
+
+.task-buttons-container {
+  grid-area: taskcontainer; /* to populate grid */
+  border-radius: 5px; /* make it a bit circular */
+  font-size: 0.65em; /* font size agains the body definition of size */
+  box-shadow: var(--the-shadow); /* box shadow definition */
+}
+
+.list-tasks {
+  color: var(--tasks-color); /* color for the list of tasks */
+}
+
+.task {
+  /* task = label + input delete task */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* because of space between, delete button is shown
+  at the end of the task container (that's what we intend) */
+  padding: 1rem; /* if not, label is sticked to the borders */
+  background-color: var(--inner-background);
+  border-bottom: 1px solid var(--circle-border);
+}
+@media (min-width: 600px) {
+  .task {
+    font-size: 1.05rem;
+    height: 61px;
+  }
+}
+.task.no-color {
+  /* when you add a new task, in order to make a transition with
+  the background color, you need to first add the background you want to start
+  transitioning, and then, go to the usual color. JS then is gonna manipulate
+  this classes (adding them to make the transition). But all the transition is
+  defined in css. Add a new class and see the clases of the newly element created
+  they'll have no-color and yes-color as classes until you refresh the page */
+  background-color: var(--outer-background);
+  border-bottom: 1px solid var(--outer-background);
+  transition: background-color 1s, border-bottom 1s;
+}
+.task.no-color.yes-color {
+  background-color: var(--inner-background);
+  border-bottom: 1px solid var(--circle-border);
+}
+
+/* by default, .task does not have a transition incorporated. When you press
+the delete task button, you first have to add the transition, and then
+transition. We are gonna transition from the full height, to a 0 height scenario
+(no show). Height will be fixed before transitioning. That's because in the
+actual scenario, we don't have a definition for task height. So, if we transition
+without a height fixed, it's gonna stick to height content and transition effect
+will no function properly */
+.task.add-transition {
+  transition: height 1s, opacity 0.4s;
+}
+.task.add-transition.fade {
+  height: 0;
+}
+
+.delete-task {
+  height: 1.4rem;
+  width: 1.4rem;
+  padding: 4px; /* padding is defined because if not, outline would be sticked to
+  the cross not showing it properly */
+}
+@media (min-width: 600px) {
+  .delete-task {
+    opacity: 0; /* tablet + desktop view, opacity is not shown by default */
+    height: 1.6rem;
+    width: 1.6rem;
+    transition: opacity 0.3s;
+  }
+}
+/*no-opacity and yes-opacity are used for delete task button + label when adding
+new tasks. When you add a new task you firstly add the no opacity class with
+the transition definition. After that, you transition to a 1 opacity smoothly */
+.delete-task.no-opacity {
+  opacity: 0;
+  transition: opacity 1s;
+}
+.delete-task.no-opacity.yes-opacity {
+  opacity: 1;
+}
+@media (min-width: 600px) {
+  .delete-task.no-opacity.yes-opacity {
+    opacity: 0; /* for tablet + desktop view, opacity remains in 0 because we
+    are not trying to show the delete task button when adding a new class (only
+    when hovering) */
+    transition: opacity 0.3s;
+  }
+}
+/* When deleting a task, after you click the button, you first have to add the
+transition property */
+.delete-task.delete-opacity {
+  transition: opacity 0.4s, right 1s;
+}
+
+.task .delete-task:focus {
+  outline: var(
+    --outline
+  ); /* defining outline when alt + tabbing to delete-task */
+}
+@media (min-width: 600px) {
+  .task:hover .delete-task {
+    opacity: 1; /* when you hover over the task, delete button appears for
+    tablet + desktop view */
+  }
+
+  .delete-task:focus {
+    opacity: 1; /* when you focus, delete task appears */
+  }
+
+  .delete-task:focus.no-opacity.yes-opacity {
+    opacity: 1; /* when you alt + tab over a newly added task, you have to show it
+    too */
+  }
+}
+
+.task-label {
+  /* task-label = input (false checkbox) + span (real checkbox) +
+  span (task label paragraph) */
+  display: flex;
+  align-items: center; /* display flex is given in order to align items center.
+  That way, "Pick up groceries would show up in the center */
+  position: relative; /* to position absolute the checkbox */
+}
+/* opacity for adding new classes */
+.task-label.no-opacity {
+  opacity: 0;
+  transition: opacity 1s;
+}
+.task-label.no-opacity.yes-opacity {
+  opacity: 1;
+}
+/* opacity transition definition for deletting */
+.task-label.label-opacity {
+  transition: opacity 0.4s, left 1s;
+}
+
+.task-label:hover {
+  cursor: pointer;
+}
+
+.task-label-paragraph {
+  margin-left: 2.5rem; /* because checkboxes have position absolute, left padding
+  for the label paragraph is needed */
+  margin-right: 0.5rem; /* margin right is needed for low width devices. In those
+  cases, we have the label paragraph sticked with the delete button. */
+  padding-top: 2px; /*because of the circle border of 2 px 
+  (1 px top, bottom, left and right) */
+  position: relative; /* relative position for task label paragraph in order to
+  position absolute the crossing line with marking a task as completed */
+  width: 100%;
+  transition: color 1s; /* when marking a task as completed, color transitions */
+}
+
+.task-label-paragraph::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  right: 0; /* covers all the right */
+  left: 0; /* starts from left */
+  top: 54%; /* 4% is like a little adjustment for center the line more with
+  the paragraph label */
+  background-color: var(--tasks-color);
+  width: 0; /* you can do it with scale(0) and scale(1) and transform origin
+  too. But, in that case, the change of color of the crossing line wouldn't 
+  progress at the same time than background-color */
+  transition: width 1s, background-color 1s;
+}
+
+/* when you check the checkbox, crossing line gains al the width and changes it
+background color. Changing the background color of the crossing line gives that
+effect of smoothly changing color from the same color as the task label writting
+to the cross line color */
+[type="checkbox"]:checked ~ .task-label-paragraph::after {
+  width: 100%;
+  background-color: var(--crossing-line-color);
+}
+
+/* the paragraph also changes its color when you mark a task as completed */
+[type="checkbox"]:checked ~ .task-label-paragraph {
+  color: var(--crossing-line-color);
+}
+
+.task .false-checkbox {
+  opacity: 0; /* you "hide" the false checkbox, that's why opacity = 0 */
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  z-index: 3; /* z-index: 3; implies that checkbox is the first 
+  element shown (so it's clickable) */
+}
+
+.false-checkbox:hover {
+  cursor: pointer;
+}
+
+.false-checkbox:focus ~ .real-checkbox {
+  outline: var(
+    --outline
+  ); /* when you focus the false checkbox, real checkox
+  outline is defined */
+}
+
+.real-checkbox {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  position: absolute;
+  background: var(--inner-background);
+  border: 1px solid var(--circle-border); /* real checkbox is what we see when 
+  we are not hovering over the checkbox */
+}
+
+.real-checkbox::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: var(--linear-gradient);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: -1px;
+  opacity: 0; /* it's hiden because when not hovering we don't want the circle
+  to be linear gradient */
+  transition: opacity 0.5s;
+}
+
+.real-checkbox-2 {
+  height: 100%;
+  width: 100%; /* because real-checkbox-2 it's inside real-checkbox and
+  height and width is 100%, then it's 23px x 23px */
+  border-radius: 50%;
+  position: absolute;
+  background: var(
+    --inner-background
+  ); /* because we have from * box-sizing: border-box; if we put a border, 
+  then It's gonna be substracted from the total height and width.
+  that's why is 23px (and not 25px). Try removing the border and you'll se 
+  that is 25px in that case */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1; /* by now we have the false checkbox with z-index 3 (first shown) and
+  real-checkbox-2 with z-index 1 (second shown). Because real-checkbox 2 it's of
+  23x23, then the circle it's shown by it's real-checkbox or real-checkbox::before 
+  (before when hovering so circle linear gradient is shown only when hovering */
+  transition: background 1s;
+}
+
+.real-checkbox-2 img {
+  opacity: 0; /* tick image is not shown until clicked */
+}
+
+.no-transition {
+  transition: none !important;
+}
+
+/* when you click false checkbox, real checkbox 2 get's the linear gradient
+background too */
+[type="checkbox"]:checked ~ .real-checkbox .real-checkbox-2 {
+  background: var(--linear-gradient);
+}
+
+/* when you check false checkbox, real checkbox border becomes 0 (to not show a
+border). And background is linear gradient too */
+[type="checkbox"]:checked ~ .real-checkbox {
+  border: 0;
+  background: var(--linear-gradient);
+}
+
+[type="checkbox"]:checked ~ .real-checkbox::before {
+  margin: 0;
+}
+
+/* when false checkbox is checked, ticking image appears */
+[type="checkbox"]:checked + .real-checkbox img {
+  opacity: 1;
+}
+
+/* when you hover over false checkbox, then real checkbox before (the one with the
+gradient background) appears */
+.false-checkbox:hover ~ .real-checkbox::before {
+  opacity: 1;
+}
+
+/* when starts dragging, cursor changes to move */
+.dragging {
+  cursor: move;
+}
+
+.list-footer {
+  /* list footer = items left p + all-active-completed buttons + 
+  clear completed button */
+  display: flex;
+  justify-content: space-between;
+  position: relative; /* that's because all-active-completed div is gonna be
+  absolute positioned for mobile view */
+  padding: 1rem; /* if not padding were defined, items left + clear completed would
+  be sticked to the edges */
+  color: var(--footer-color);
+  background-color: var(--inner-background);
+}
+@media (min-width: 600px) {
+  .list-footer {
+    position: static; /* when positioned static, then div goes "inside" the
+    items left + clear completed zone */
+  }
+}
+
+.btn {
+  border: 0; /* deleting default button border */
+  background: 0; /* deleting default button background */
+  color: var(--footer-color);
+  transition: color 0.25s; /* lagging effect when hovering over the btn */
+}
+
+.btn.active {
+  color: var(
+    --active-button-anchor
+  ); /* active button has a special color 
+  (blueish) */
+}
+
+.btn:hover {
+  color: var(--button-hover-color);
+  cursor: pointer;
+}
+
+.btn:focus {
+  outline: var(--outline);
+}
+
+@media (max-width: 250px) {
+  .clear-completed {
+    text-align: right;
+    font-size: 0.7rem;
+    width: 70%;
+  }
+}
+@media (min-width: 600px) {
+  .items-left {
+    font-size: 0.85rem;
+  }
+}
+
+.all-active-completed {
+  position: absolute; /* this is needed in order to "get out" all, active, completed */
+  top: 4.2rem;
+  left: 0.5%;
+  background-color: var(--inner-background);
+  border-radius: 5px;
+  height: 47px;
+  width: 100%; /* 100% of parent element, which is list footer, so it's from
+  start to end */
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 250px) {
+  .all-active-completed {
+    font-size: 0.59rem;
+  }
+}
+@media (min-width: 600px) {
+  .all-active-completed {
+    position: static;
+    padding: 0;
+    height: auto;
+    width: auto;
+  }
+}
+
+.all-active-completed > .btn {
+  font-weight: 700;
+  font-size: 1.25em;
+  margin-right: 0.6rem;
+  margin-left: 0.6rem;
+}
+
+.drag {
+  grid-area: draganddrop;
+  margin-top: 6rem;
+  margin-right: 0.625rem; /* little adjustment to be more "centered" */
+  color: var(--footer-color);
+  text-align: center;
+  font-size: 0.85em;
+}
+@media (min-width: 600px) {
+  .drag {
+    margin-top: 3rem;
+  }
+}

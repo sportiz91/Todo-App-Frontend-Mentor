@@ -1,0 +1,19 @@
+{
+  "folders": [
+	{
+		"path": ".."
+	},
+	{
+		"path": "..\\..\\ToDo App_WDY Santi"
+	},
+	{
+		"path": "..\\..\\ToDo App_WDY"
+	},
+	{
+		"path": "..\\..\\Draggable_WDY"
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "ToDo App_Santi"
+  }
+}
